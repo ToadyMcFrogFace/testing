@@ -1,0 +1,13 @@
+version: '2'
+services:
+  lumen:
+    image: alpha-dog/lumen
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: trpp-lumen
+    restart: always
+    volumes: 
+      - ./:/code
+    working_dir: /code
+    tty: true

@@ -1,0 +1,35 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./api:/var/www
+      - ./docker/web/site.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+    links:
+      - php
+
+  php:
+    image: alpha-dog/php
+    volumes: 
+      - ./api:/var/www
+
+  database:
+    image: mysql:latest
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - ./docker/database/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      - "MYSQL_DATABASE=trpp"
+      - "MYSQL_USER=trppuser"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+    ports:
+        - "3306:3306"
+
+# volumes:
+#   dbdata:

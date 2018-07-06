@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  # php:
+  #   image: 'alpha-dog/php'
+  #   volumes:
+  #     - .:/var/www/app
+  #   environment:
+
+  nginx:
+    image: nginx:latest
+      - .:/var/www/app
+    ports:
+      - "8080:80"
+
+  # composer:
+  #   image: composer:latest
+  #   restart: always
+  #   volumes:
+  #     - .:/code
+  #   environment:
